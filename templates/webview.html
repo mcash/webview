@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Webview</title>
+
+    <script>
+        function pleasePay() {
+            mcash_uri = 'mcash://qr?code=' + encodeURI("{{ shortlink }}");
+            if (!/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                mcash_uri = 'external:' + mcash_uri;
+            }
+            setTimeout(function () {
+                window.location.href = "close:";
+            }, 1000);
+            window.location.href = mcash_uri ;
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <h2>Webview</h2>
+
+    <button type="button" id="testButton" onclick="pleasePay()">Go to payment</button>
+
+</body>
+</html>

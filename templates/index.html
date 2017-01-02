@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+    <a href="{{ url_for('webview_preview') }}">Preview webview</a> <br>
+    <a href="{{ url_for('generate_shortlink') }}">Create new shortlink</a>
+    <p>
+        First step is to create a shortlink. In this example, we want to set the callback url to
+        https://url-to-this-application.example/callback. If the callback url is not HTTPS, you will not receive the
+        `object` part of the callback from mCASH, and will have to modify the code in `def callback()` to do an
+        HTTPS GET back to mCASH using the `uri` from the `meta` part of the callback.
+        See http://dev.mca.sh/callbacks.html for details.
+    </p>
+    <p>
+        This example application works like this: 1) If the user scans a shortlink with `webview` as an argstring,
+        an uri to a webview is returned in the callback response, which the mCASH app will open internally for the user.
+        2) When the user click "Go to payment" the app opens a link on the form "mcash://qr?code=[shortlink]", which
+        will make the mCASH app do a "QR-scan" of the shortlink (without the argstring froms step 1), behind the scenes.
+    </p>
+    <p>
+        The scan in step 2) invokes a payment request. We pop the webview off the stack by redirecting to `close:`
+        in a timeout function using javascript, and the user is then back in the native mCASH payment view, ready
+        to pay.
+    </p>
+
+</body>
+</html>
